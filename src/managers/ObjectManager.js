@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 export class ObjectManager {
-    constructor() {
+    constructor(sceneManager = null) {
         this.objects = [];
         this.gltfLoader = new GLTFLoader();
         this.previewMesh = null;
@@ -14,6 +14,7 @@ export class ObjectManager {
         this.selectionOutline = null;
         this.actionButtonsContainer = null;
         this.camera = null; // Will be set by SceneManager
+        this.sceneManager = sceneManager; // Can be set in constructor or later
     }
 
     setCamera(camera) {
@@ -360,9 +361,27 @@ export class ObjectManager {
     }
 
     deleteObject(object) {
-        if (object) {
+        if (!object) return;
+        
+        // Remove from scene if sceneManager is available
+        if (this.sceneManager) {
             this.sceneManager.removeObject(object);
         }
+        
+        // Remove from our internal objects array
+        this.removeObject(object);
+        
+        // Clear selection if this was the selected object
+        if (object === this.selectedObject) {
+            this.deselectObject();
+        }
+        
+        // Hide action buttons
+        this.hideActionButtons();
+    }
+
+    setSceneManager(sceneManager) {
+        this.sceneManager = sceneManager;
     }
 
     addObject(object) {

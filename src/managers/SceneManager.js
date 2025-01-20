@@ -11,8 +11,8 @@ export class SceneManager {
         this.raycaster = new THREE.Raycaster();
         this.mouse = new THREE.Vector2();
         
-        // Initialize ObjectManager
-        this.objectManager = new ObjectManager();
+        // Initialize ObjectManager with this instance
+        this.objectManager = new ObjectManager(this);
         
         this.setupRenderer(container);
         this.setupScene();
@@ -30,10 +30,9 @@ export class SceneManager {
         this.renderer.setSize(window.innerWidth, window.innerHeight);
         this.renderer.shadowMap.enabled = true;
         this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-        this.renderer.outputEncoding = THREE.sRGBEncoding;
+        this.renderer.outputColorSpace = THREE.SRGBColorSpace;
         this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
         this.renderer.toneMappingExposure = 1.2;
-        this.renderer.physicallyCorrectLights = true;
         container.appendChild(this.renderer.domElement);
     }
 
@@ -116,7 +115,7 @@ export class SceneManager {
         this.scene.add(ambientLight);
 
         // Main directional light (simulating sunlight)
-        const mainLight = new THREE.DirectionalLight(0xffffff, 1.0);
+        const mainLight = new THREE.DirectionalLight(0xffffff, 2.0); // Increased intensity to compensate for new lighting model
         mainLight.position.set(10, 15, 10);
         mainLight.castShadow = true;
         mainLight.shadow.mapSize.width = 2048;
@@ -131,12 +130,12 @@ export class SceneManager {
         this.scene.add(mainLight);
 
         // Fill light for softer shadows
-        const fillLight = new THREE.DirectionalLight(0xffffff, 0.6);
+        const fillLight = new THREE.DirectionalLight(0xffffff, 1.2); // Increased intensity
         fillLight.position.set(-10, 10, -10);
         this.scene.add(fillLight);
 
         // Additional soft light for better material visibility
-        const softLight = new THREE.HemisphereLight(0xffffff, 0xffffff, 0.5);
+        const softLight = new THREE.HemisphereLight(0xffffff, 0xffffff, 1.0); // Increased intensity
         this.scene.add(softLight);
     }
 
@@ -221,8 +220,16 @@ export class SceneManager {
 
     animate() {
         requestAnimationFrame(this.animate.bind(this));
-        this.controls.update();
-        this.renderer.render(this.scene, this.camera);
+        this.render();
+    }
+
+    render() {
+        if (this.controls) {
+            this.controls.update();
+        }
+        if (this.renderer && this.scene && this.camera) {
+            this.renderer.render(this.scene, this.camera);
+        }
     }
 
     addObject(object) {

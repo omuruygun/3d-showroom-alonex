@@ -33,33 +33,29 @@ class BlockCustomizer {
     }
 
     init() {
-        // Initialize scene and managers
+        // Get the container element
         const container = document.getElementById('canvas-container');
         if (!container) {
+            console.error('Canvas container not found');
             return;
         }
 
+        // Initialize SceneManager first
         this.sceneManager = new SceneManager(container);
-        this.objectManager = new ObjectManager(this.sceneManager);
+        
+        // Get the ObjectManager instance from SceneManager
+        this.objectManager = this.sceneManager.objectManager;
+        
+        // Initialize DragDropManager with both managers
         this.dragDropManager = new DragDropManager(this.sceneManager, this.objectManager);
-
+        
         // Initialize sidebar
         this.sidebar = new Sidebar();
-
-        // Listen for wardrobe selection
-        document.addEventListener('wardrobeSelected', (event) => {
-            const { selectedImage, availableModels } = event.detail;
-            this.filterModels(availableModels);
-        });
-
-        // Listen for create modern room event
-        document.addEventListener('createModernRoom', () => {
-            this.sceneManager.createModernRoom();
-        });
-
+        
+        // Set up event listeners
         this.setupEventListeners();
         
-        // Start the animation loop
+        // Start animation loop in SceneManager
         this.sceneManager.animate();
     }
 
@@ -158,6 +154,17 @@ class BlockCustomizer {
     }
 
     setupEventListeners() {
+        // Listen for wardrobe selection
+        document.addEventListener('wardrobeSelected', (event) => {
+            const { selectedImage, availableModels } = event.detail;
+            this.filterModels(availableModels);
+        });
+
+        // Listen for create modern room event
+        document.addEventListener('createModernRoom', () => {
+            this.sceneManager.createModernRoom();
+        });
+
         const saveBtn = document.getElementById('save-btn');
         const loadBtn = document.getElementById('load-btn');
         const clearBtn = document.getElementById('clear-btn');
@@ -194,10 +201,7 @@ class BlockCustomizer {
     }
 
     animate() {
-        if (this.sceneManager) {
-            this.sceneManager.render();
-            requestAnimationFrame(() => this.animate());
-        }
+        // Removed
     }
 
     resetScene() {

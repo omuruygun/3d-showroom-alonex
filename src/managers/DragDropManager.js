@@ -57,6 +57,12 @@ export class DragDropManager {
         });
     }
 
+    handleDragEnter(e) {
+        e.preventDefault();
+        // This method is needed for drag and drop to work properly
+        // The actual functionality is handled in handleDragOver
+    }
+
     handleDragOver(e) {
         e.preventDefault();
         if (!this.isDragging || !this.objectManager.previewMesh) return;

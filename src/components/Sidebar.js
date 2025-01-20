@@ -37,33 +37,6 @@ class Sidebar {
         heading.style.marginBottom = '20px';
         sidebar.appendChild(heading);
 
-        // Add Create Room button
-        const createRoomBtn = document.createElement('button');
-        createRoomBtn.textContent = 'Create Modern Room';
-        createRoomBtn.style.cssText = `
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 20px;
-            background: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: background 0.3s;
-        `;
-        createRoomBtn.addEventListener('mouseenter', () => {
-            createRoomBtn.style.background = '#45a049';
-        });
-        createRoomBtn.addEventListener('mouseleave', () => {
-            createRoomBtn.style.background = '#4CAF50';
-        });
-        createRoomBtn.addEventListener('click', () => {
-            const event = new CustomEvent('createModernRoom');
-            document.dispatchEvent(event);
-        });
-        sidebar.appendChild(createRoomBtn);
-
         const imageContainer = document.createElement('div');
         imageContainer.className = 'image-container';
         imageContainer.style.cssText = `
@@ -97,7 +70,7 @@ class Sidebar {
     }
 
     loadImages() {
-        for (let i = 1; i <= 6; i++) {
+        for (let i = 1; i <= 5; i++) {
             const imgWrapper = document.createElement('div');
             imgWrapper.className = 'image-wrapper';
             imgWrapper.style.cssText = `
