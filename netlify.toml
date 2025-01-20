@@ -1,6 +1,6 @@
 [build]
   publish = "."
-  command = ""
+  command = "npm install"
 
 [[redirects]]
   from = "/"
@@ -16,3 +16,18 @@
   for = "/*"
     [headers.values]
     Access-Control-Allow-Origin = "*"
+
+[[headers]]
+  for = "/models/*"
+    [headers.values]
+    Cache-Control = "public, max-age=31536000"
+
+[[headers]]
+  for = "/*.gltf"
+    [headers.values]
+    Content-Type = "model/gltf+json"
+
+[[headers]]
+  for = "/*.glb"
+    [headers.values]
+    Content-Type = "model/gltf-binary"
