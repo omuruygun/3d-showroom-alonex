@@ -110,7 +110,7 @@ class Sidebar {
             `;
 
             const img = document.createElement('img');
-            img.src = `src/images/${i}.jpg`;
+            img.src = `/images/${i}.jpg`;
             img.alt = `Wardrobe Style ${i}`;
             img.style.cssText = `
                 width: 100%;
@@ -191,7 +191,7 @@ class Sidebar {
             `;
             
             const modelImg = document.createElement('img');
-            modelImg.src = `src/images/models/${modelId}-screenshot.jpg`;
+            modelImg.src = `/images/models/${modelId}-screenshot.jpg`;
             modelImg.alt = `Model ${modelId}`;
             modelImg.style.cssText = `
                 width: 100%;

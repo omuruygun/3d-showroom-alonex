@@ -60,7 +60,7 @@ export class SceneManager {
         // Load the room model
         const loader = new GLTFLoader();
         loader.load(
-            '/models/room.glb',
+            './models/room.glb',
             (gltf) => {
                 const room = gltf.scene;
                 room.traverse((child) => {
