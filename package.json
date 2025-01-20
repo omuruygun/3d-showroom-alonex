@@ -1,0 +1,19 @@
+{
+  "name": "3d-block-customizer",
+  "version": "1.0.0",
+  "description": "3D Drag & Drop Block Customizer",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "npx http-server .",
+    "build": "webpack"
+  },
+  "dependencies": {
+    "three": "^0.158.0",
+    "cannon-es": "^0.20.0"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4"
+  }
+}

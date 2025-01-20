@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>3D Block Customizer</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/sidebar.css">
+    <script async src="https://unpkg.com/es-module-shims/dist/es-module-shims.js"></script>
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://unpkg.com/three@0.158.0/build/three.module.js",
+            "three/addons/": "https://unpkg.com/three@0.158.0/examples/jsm/",
+            "cannon-es": "https://unpkg.com/cannon-es@0.20.0/dist/cannon-es.js"
+        }
+    }
+    </script>
+</head>
+<body>
+    <!-- The sidebar will be dynamically created by Sidebar.js -->
+    <div class="main-content">
+        <div id="canvas-container"></div>
+        <div id="controls">
+            <button id="save-btn">Save Scene</button>
+            <button id="load-btn">Load Scene</button>
+            <button id="clear-btn">Clear Scene</button>
+        </div>
+    </div>
+    <script type="module" src="src/app.js"></script>
+</body>
+</html>
